@@ -1,0 +1,28 @@
+FROM debian:jessie
+MAINTAINER Christophe Burki, christophe.burki@gmail.com
+
+ENV CHRONOGRAF_VERSION 0.4.0
+
+# Install system requirements
+RUN apt-get update && apt-get install -y \
+    locales
+    
+# Configure locales and timezone
+RUN locale-gen en_US.UTF-8 en_GB.UTF-8 fr_CH.UTF-8
+RUN cp /usr/share/zoneinfo/Europe/Zurich /etc/localtime
+RUN echo "Europe/Zurich" > /etc/timezone
+
+# telegraf install and config
+ADD https://s3.amazonaws.com/get.influxdb.org/chronograf/chronograf_${CHRONOGRAF_VERSION}_amd64.deb /tmp/chronograf_amd64.deb
+RUN dpkg -i /tmp/chronograf_amd64.deb
+COPY configs/chronograf.toml /opt/etc/
+
+# s6 install and config
+COPY bin/* /usr/bin/
+RUN chmod a+x /usr/bin/s6-*
+COPY configs/etc/s6 /etc/s6/
+RUN chmod a+x /etc/s6/.s6-svscan/finish /etc/s6/chronograf/run /etc/s6/chronograf/finish
+
+EXPOSE 10000
+
+CMD ["/usr/bin/s6-svscan", "/etc/s6"]

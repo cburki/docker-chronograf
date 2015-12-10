@@ -1,0 +1,3 @@
+#!/bin/bash
+
+/opt/chronograf/chronograf -config=/opt/etc/chronograf.toml
