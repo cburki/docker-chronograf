@@ -1,7 +1,7 @@
 FROM debian:jessie
 MAINTAINER Christophe Burki, christophe.burki@gmail.com
 
-ENV CHRONOGRAF_VERSION 0.12.0
+ENV CHRONOGRAF_VERSION 0.13.0
 
 # Install system requirements
 RUN apt-get update && apt-get install -y \
@@ -13,7 +13,7 @@ RUN cp /usr/share/zoneinfo/Europe/Zurich /etc/localtime
 RUN echo "Europe/Zurich" > /etc/timezone
 
 # telegraf install and config
-ADD https://s3.amazonaws.com/get.influxdb.org/chronograf/chronograf_${CHRONOGRAF_VERSION}_amd64.deb /tmp/chronograf_amd64.deb
+ADD https://dl.influxdata.com/chronograf/releases/chronograf_${CHRONOGRAF_VERSION}_amd64.deb /tmp/chronograf_amd64.deb
 RUN dpkg -i /tmp/chronograf_amd64.deb
 COPY configs/chronograf.toml /opt/etc/
 
