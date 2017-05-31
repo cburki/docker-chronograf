@@ -1,12 +1,12 @@
 FROM debian:jessie
 MAINTAINER Christophe Burki, christophe.burki@gmail.com
 
-ENV CHRONOGRAF_VERSION 1.0.0
+ENV CHRONOGRAF_VERSION 1.3.1.0
 
 # Install system requirements
 RUN apt-get update && apt-get install -y \
     locales
-    
+
 # Configure locales and timezone
 RUN locale-gen en_US.UTF-8 en_GB.UTF-8 fr_CH.UTF-8
 RUN cp /usr/share/zoneinfo/Europe/Zurich /etc/localtime
