@@ -1,7 +1,7 @@
 FROM debian:jessie
 MAINTAINER Christophe Burki, christophe.burki@gmail.com
 
-ENV CHRONOGRAF_VERSION 1.3.1.0
+ENV CHRONOGRAF_VERSION 1.3.6.1
 
 # Install system requirements
 RUN apt-get update && apt-get install -y \
